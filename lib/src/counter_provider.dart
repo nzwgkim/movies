@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 
-class CountProvider extends ChangeNotifier {
-  int _counter;
-  int get count => _counter;
+class CounterProvider extends ChangeNotifier {
+  int _counter = 0;
+  int get counter => _counter;
 
   void add() {
     _counter++;
+    print('count=$counter, _count=$_counter');
     notifyListeners();
   }
 
