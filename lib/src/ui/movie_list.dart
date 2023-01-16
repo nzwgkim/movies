@@ -1,76 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:movies/src/movie_provider.dart';
+import 'package:movies/src/provider/movie_provider.dart';
 import 'package:provider/provider.dart';
 
-class Movie {
-  String overview;
-  String posterPath;
-  String releaseDate;
-  String title;
-  double voteAverage;
-  int voteCount;
-  Movie(
-      {required this.overview,
-      required this.posterPath,
-      required this.releaseDate,
-      required this.title,
-      required this.voteAverage,
-      required this.voteCount});
-
-  Movie.fromJson(Map<String, dynamic> json)
-      : overview = json['overview'] as String,
-        posterPath = json['poster_path'] as String,
-        releaseDate = json['release_date'] as String,
-        title = json['title'] as String,
-        voteAverage = double.parse(json['vote_average'].toString()),
-        voteCount = json['vote_count'] as int;
-
-  String get posterUrl => 'http://image.tmdb.org/t/p/w500/$posterPath';
-}
-
-class MovieListWidget extends StatelessWidget {
-  MovieListWidget({super.key});
-  // MovieListWidget({Key? key}) : super(key: key);
-  late MovieProvider _movieProvider;
-
-  Widget _makeListView(List<Movie> movies) {
-    return ListView.separated(
-      itemCount: movies.length,
-      itemBuilder: (BuildContext context, int index) {
-        print(movies[index].title);
-        return Center(
-          child: Text(movies[index].title),
-        );
-      },
-      separatorBuilder: (BuildContext context, int index) {
-        return const Divider(height: 1);
-      },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    _movieProvider = Provider.of<MovieProvider>(context);
-    _movieProvider.loadMovies();
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Movie Provider'),
-      ),
-      body: Consumer<MovieProvider>(
-        builder: (context, provider, widget) {
-          if (provider.movies.isNotEmpty) {
-            return _makeListView(provider.movies);
-          }
-          return const Center(child: CircularProgressIndicator());
-        },
-      ),
-    );
-  }
-}
+import 'package:movies/src/model/movie.dart';
 
 class MovieList extends StatefulWidget {
-  const MovieList({Key? key}) : super(key: key);
+  const MovieList({super.key});
 
   @override
   _MovieListState createState() => _MovieListState();
@@ -81,7 +16,7 @@ class _MovieListState extends State<MovieList> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    _movieProvider = Provider.of<MovieProvider>(context);
+    _movieProvider = Provider.of<MovieProvider>(context, listen: false);
     _movieProvider.loadMovies();
   }
 

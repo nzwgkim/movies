@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:movies/src/buttom_nav_provider.dart';
-import 'package:movies/src/counter_provider.dart';
-import 'package:movies/src/home_page.dart';
-import 'package:movies/src/movie_provider.dart';
+import 'package:movies/src/provider/bottom_navigation_provider.dart';
+import 'package:movies/src/provider/counter_provider.dart';
+import 'package:movies/src/provider/movie_provider.dart';
+import 'package:movies/src/ui/home.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -24,12 +24,12 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider<CounterProvider>(
             create: (_) => CounterProvider(),
           ),
-          ChangeNotifierProvider<BottomNavProvider>(
-            create: (_) => BottomNavProvider(),
+          ChangeNotifierProvider<BottomNavigationProvider>(
+            create: (_) => BottomNavigationProvider(),
           ),
           ChangeNotifierProvider<MovieProvider>(
             create: (_) => MovieProvider(),
           ),
-        ], child: HomePage()));
+        ], child: Home()));
   }
 }
