@@ -102,7 +102,7 @@ class _MovieListState extends State<MovieList> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Movie List with Provider"),
+        title: const Text("Popular movies"),
       ),
       body: Consumer<MovieProvider>(
         builder: (context, value, child) {
