@@ -13,7 +13,8 @@ class MovieRepository {
         Uri.https('api.themoviedb.org', '/3/movie/popular', queryParameters);
     var response = await http.get(uri);
     Map<String, dynamic> body = json.decode(response.body);
-    if (body['results'] != null) {
+    // if (body['results'] != null) {
+    if (response.statusCode == 200) {
       List<dynamic> list = body['results'];
       return list.map<Movie>((item) => Movie.fromJson(item)).toList();
     } else {
