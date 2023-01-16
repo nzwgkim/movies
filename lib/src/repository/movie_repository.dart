@@ -6,11 +6,24 @@ import 'package:movies/src/model/movie.dart';
 
 class MovieRepository {
   Future<List<Movie>> loadMovies() async {
-    var queryParameters = {
+    // https://api.themoviedb.org/3/movie/popular?api_key=be7a5086ca839d1d338f5d6789a92451
+
+    // 방법1
+    var query = {
       'api_key': 'be7a5086ca839d1d338f5d6789a92451'
     }; // https://www.themoviedb.org/ 제공하는 api key
-    var uri =
-        Uri.https('api.themoviedb.org', '/3/movie/popular', queryParameters);
+    var path = '/3/movie/popular';
+    var authority = 'api.themoviedb.org';
+    var uri = Uri.https(authority, path, query);
+
+    // 방법2
+    // const String baseUrl = 'https://api.themoviedb.org';
+    // var popularMovie = '/3/movie/popular';
+    // var apiKey = 'api_key=be7a5086ca839d1d338f5d6789a92451';
+
+    // var uri = Uri.parse('$baseUrl/$popularMovie?$apiKey');
+    print('URI $uri');
+
     var response = await http.get(uri);
     Map<String, dynamic> body = json.decode(response.body);
     // if (body['results'] != null) {
