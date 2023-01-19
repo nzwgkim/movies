@@ -4,8 +4,10 @@ class DetailRepository {
     var query = {
       'api_key': 'be7a5086ca839d1d338f5d6789a92451'
     }; // https://www.themoviedb.org/ 제공하는 api key
-    var path = '/3/movie/popular';
+    var path = '/3/movie/';
+    var movieId = '76600';
+    var moviePath = path + movieId;
     var authority = 'api.themoviedb.org';
-    var uri = Uri.https(authority, path, query);
+    var uri = Uri.https(authority, moviePath, query);
   }
 }
